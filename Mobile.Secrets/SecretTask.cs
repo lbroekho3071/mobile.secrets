@@ -15,21 +15,22 @@ namespace Mobile.Secrets
 
         public string OutputPath { get; set; } = "";
 
+        public string NamespaceName { get; set; } = "";
+
         [Output] public ITaskItem[] GeneratedFiles { get; private set; } = Array.Empty<ITaskItem>();
 
         public override bool Execute()
         {
             var className = "Settings";
-            var namespaceName = "TestApplication";
 
             var items = RunCollectors();
-            var secrets = BuildSecretsClass(items, className, namespaceName);
+            var secrets = BuildSecretsClass(items, className, NamespaceName);
 
             var outputPath = Path.Combine(OutputPath, $"{className}.Generated.cs");
 
             var taskItem = new TaskItem(outputPath);
             taskItem.SetMetadata("Visible", bool.TrueString);
-            taskItem.SetMetadata("Link", Path.Combine(namespaceName, $"{className}.Generated.cs"));
+            taskItem.SetMetadata("Link", Path.Combine(NamespaceName, $"{className}.Generated.cs"));
 
             var output = new List<ITaskItem>
             {
