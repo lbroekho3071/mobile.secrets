@@ -24,6 +24,10 @@ namespace Mobile.Secrets
             var className = "Settings";
 
             var items = RunCollectors();
+
+            if (items.Count <= 0)
+                throw new Exception($"No settings were found. {SettingsPath} was used as settings path, Secret_ was used as prefix to find settings in your environment.");
+            
             var secrets = BuildSecretsClass(items, className, NamespaceName);
 
             var outputPath = Path.Combine(OutputPath, $"{className}.Generated.cs");
