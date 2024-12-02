@@ -10,8 +10,10 @@
   <ItemGroup>
     <ProjectReference Include="../Mobile.Secrets/Mobile.Secrets.csproj"/>
   </ItemGroup>
+
+  <UsingTask
+          TaskName="SecretTask"
+          AssemblyFile="$([System.IO.Path]::Combine('..', 'Mobile.Secrets', 'bin', $(Configuration), netstandard2.1, Mobile.Secrets.dll))"/>
   
-<!--
-  <Import Project="../Mobile.Secrets/secret.targets"/>
--->
+  <Import Project="../Mobile.Secrets/build/Mobile.Secrets.targets"/>
 </Project>
